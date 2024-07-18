@@ -32,18 +32,26 @@ bool contains_user_delim(std::string &str, std::string& delim)
 	return false;
 }
 
-int StringCalculator::add(std::string numbers)
-{
+void is_negative_number_present(int result){
+	if(result<0)throw std::runtime_error("negative number not allowed");
+}
+
+int number_empty(std::string numbers){
 	if(numbers.empty()){
 		return 0 ;
 	}
+}
+
+int StringCalculator::add(std::string numbers)
+{
+	number_empty(numbers);
 	std::string delim("\n,");
 	bool user_delim = contains_user_delim(numbers,delim);
 
 	int result;
 	std::stringstream ss(numbers);
 	ss>>result;
-	if(result<0)throw std::runtime_error("negative number not allowed");
+	is_negative_number_present(result);
 	numbers = numbers.substr(ss.tellg(), numbers.size() - ss.tellg());
 	int next;
 	while(is_there_another_number(numbers,next,delim,user_delim))
