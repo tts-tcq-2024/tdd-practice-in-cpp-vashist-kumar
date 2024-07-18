@@ -21,7 +21,7 @@ bool is_there_another_number(std::string& str, int & number,std::string const&de
 	return true;
 }
 
-bool contains_user_delim(std::string &str.size() - ss.tellg());
+bool contains_user_delim(std::string &str, std::string& delim);
 {
 	if(str[0]=='/' && str[1]=='/'){
 		delim = str[2];
