@@ -51,7 +51,7 @@ int StringCalculator::add(std::string numbers)
 	int result;
 	std::stringstream ss(numbers);
 	ss>>result;
-	is_negative_number_present(result);
+	//is_negative_number_present(result);
 	numbers = numbers.substr(ss.tellg(), numbers.size() - ss.tellg());
 	int next;
 	while(is_there_another_number(numbers,next,delim,user_delim))
