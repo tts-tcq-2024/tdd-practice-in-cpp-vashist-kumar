@@ -1,6 +1,7 @@
 #include <sstream>
 #include "StringCalculator.h"
 #include <stdexcept>
+#include "common_cpp_unit_headers.h""
 bool is_there_another_number(std::string& str, int & number,std::string const&delim, bool is_user_delim)
 {
 	std::string::size_type pos;
