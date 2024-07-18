@@ -44,7 +44,10 @@ int number_empty(std::string numbers){
 
 int StringCalculator::add(std::string numbers)
 {
-	number_empty(numbers);
+	//number_empty(numbers);
+	if(numbers.empty()){
+		return 0 ;
+	}
 	std::string delim("\n,");
 	bool user_delim = contains_user_delim(numbers,delim);
 
@@ -56,7 +59,7 @@ int StringCalculator::add(std::string numbers)
 	int next;
 	while(is_there_another_number(numbers,next,delim,user_delim))
 	{
-		if(next<0)throw std::runtime_error("negative number not allowed");
+		//if(next<0)throw std::runtime_error("negative number not allowed");
 		result += next;
 	}
 	return result;
