@@ -21,7 +21,7 @@ bool is_there_another_number(std::string& str, int & number,std::string const&de
 	return true;
 }
 
-bool contains_user_delim(std::string &str, std::string& delim);
+bool contains_user_delim(std::string &str, std::string& delim)
 {
 	if(str[0]=='/' && str[1]=='/'){
 		delim = str[2];
@@ -33,7 +33,7 @@ bool contains_user_delim(std::string &str, std::string& delim);
 
 int add(std::string numbers)
 {
-	if(number.empty()){
+	if(numbers.empty()){
 		return 0 ;
 	}
 	std::string delim("\n,");
@@ -45,7 +45,7 @@ int add(std::string numbers)
 	if(result<0)throw std::runtime_error("negative number not allowed");
 	numbers = numbers.substr(ss.tellg(), numbers.size() - ss.tellg());
 	int next;
-	while(is_there_another_number(number,next,delim,user_delim))
+	while(is_there_another_number(numbers,next,delim,user_delim))
 	{
 		if(next<0)throw std::runtime_error("negative number not allowed");
 		result += next;
