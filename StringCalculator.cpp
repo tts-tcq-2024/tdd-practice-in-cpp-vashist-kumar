@@ -1,4 +1,5 @@
 #include <sstream>
+#include "StringCalculator.h"
 #include <stdexcept>
 bool is_there_another_number(std::string& str, int & number,std::string const&delim, bool is_user_delim)
 {
@@ -31,7 +32,7 @@ bool contains_user_delim(std::string &str, std::string& delim)
 	return false;
 }
 
-int add(std::string numbers)
+int StringCalculator::add(std::string numbers)
 {
 	if(numbers.empty()){
 		return 0 ;
