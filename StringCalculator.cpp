@@ -2,6 +2,10 @@
 #include "StringCalculator.h"
 #include <stdexcept>
 #include <bits/stdc++.h>
+#include<iostream> 
+#include<vector> 
+#include<algorithm> 
+#include<array> 
 bool is_there_another_number(std::string& str, int & number,std::string const&delim, bool is_user_delim)
 {
 	std::string::size_type pos;
