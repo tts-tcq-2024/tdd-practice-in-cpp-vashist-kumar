@@ -25,7 +25,7 @@ bool contains_user_delim(std::string &str, std::string& delim)
 {
 	if(str[0]=='/' && str[1]=='/'){
 		delim = str[2];
-		str = str.substr(4,size() - 4);
+		str = str.substr(4,str.size() - 4);
 		return true;
 	}
 	return false;
