@@ -5,9 +5,8 @@
 #include <stdexcept>
 #include <algorithm>
 
-class StringCalculator {
-public:
-    int add(const std::string& numbers) {
+
+    int StringCalculator::add(const std::string& numbers) {
         if (numbers.empty()) {
             return 0;
         }
@@ -124,6 +123,6 @@ private:
         }
         return sum;
     }
-};
+
 
 
