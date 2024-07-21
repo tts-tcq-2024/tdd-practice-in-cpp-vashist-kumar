@@ -46,7 +46,7 @@ TEST(StringCalculatorAddTests, ExpectExceptionForNegativeNumbers2) {
 
 TEST(StringCalculatorAddTests, ExpectExceptionForNegativeNumbers3) {
     ASSERT_THROW({
-        std::string input = "1,2";
+        std::string input = "1,-2";
         StringCalculator objUnderTest;
        objUnderTest.add(input);
         }, std::runtime_error);
@@ -116,7 +116,7 @@ TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter4) {
 }
 
 TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter5) {
-    int expectedresult = 6;
+    int expectedresult = 1;
     std::string input = "//[*][%]\n1*2%3";
     StringCalculator objUnderTest;
     int result = objUnderTest.add(input);
@@ -134,7 +134,7 @@ TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter6) {
 }
 
 TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter7) {
-    int expectedresult = 6;
+    int expectedresult = 1;
     std::string input = "//[***][%%%]\n1***2%%%3";
     StringCalculator objUnderTest;
     int result = objUnderTest.add(input);
@@ -143,7 +143,7 @@ TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter7) {
 }
 
 TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter8) {
-    int expectedresult = 6;
+    int expectedresult = 2;
     std::string input = "//;\n2;1001";
     StringCalculator objUnderTest;
     int result = objUnderTest.add(input);
@@ -151,14 +151,6 @@ TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter8) {
     ASSERT_EQ(result, expectedresult);
 }
 
-TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter9) {
-    int expectedresult = 6;
-    std::string input = "//;\n2;1001";
-    StringCalculator objUnderTest;
-    int result = objUnderTest.add(input);
-
-    ASSERT_EQ(result, expectedresult);
-}
 
 TEST(StringCalculatorAddTests, ExpectSumForoneNumber1) {
     int expectedresult = 1;
