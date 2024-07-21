@@ -126,7 +126,7 @@ TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter5) {
 
 TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter6) {
     int expectedresult = 6;
-    std::string input = "1,2,3";
+    std::string input = "1]2[3";
     StringCalculator objUnderTest;
     int result = objUnderTest.add(input);
 
