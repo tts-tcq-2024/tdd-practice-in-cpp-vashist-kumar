@@ -5,7 +5,15 @@
 #include <stdexcept>
 #include <algorithm>
 #include "StringCalculator.h"
-
+void processCustomDelimiter(const std::string& numbers, std::vector<std::string>& delimiters, std::string& numStr);
+std::vector<std::string> parseDelimiters(const std::string& delimiter_spec);
+std::vector<int> splitAndParse(const std::string& str, const std::vector<std::string>& delimiters);
+size_t findFirstDelimiter(const std::string& str, size_t start, const std::vector<std::string>& delimiters);
+size_t findDelimiterIndex(const std::string& str, size_t pos, const std::vector<std::string>& delimiters);
+void addNumber(const std::string& token, std::vector<int>& nums);
+void checkForNegatives(const std::vector<int>& nums);
+void throwNegativeException(const std::vector<int>& negatives);
+int calculateSum(const std::vector<int>& nums);
 
     int StringCalculator::add(const std::string& numbers) {
         if (numbers.empty()) {
@@ -25,7 +33,7 @@
         return calculateSum(nums);
     }
 
-private:
+
     void processCustomDelimiter(const std::string& numbers, std::vector<std::string>& delimiters, std::string& numStr) {
         size_t delimiter_end = numbers.find("\n");
         std::string delimiter_spec = numbers.substr(2, delimiter_end - 2);
