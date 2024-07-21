@@ -15,6 +15,8 @@ void checkForNegatives(const std::vector<int>& nums);
 void throwNegativeException(const std::vector<int>& negatives);
 int calculateSum(const std::vector<int>& nums);
 void checknegutils(std::vector<int> negatives);
+void whiledelim(size_t end,std::vector<std::string> delimiters, const std::string& delimiter_spec,size_t start);
+
 
     int StringCalculator::add(const std::string& numbers) {
         if (numbers.empty()) {
@@ -42,16 +44,20 @@ void checknegutils(std::vector<int> negatives);
         numStr = numbers.substr(delimiter_end + 1);
     }
 
+void whiledelim(size_t end,std::vector<std::string> delimiters, const std::string& delimiter_spec,size_t start){
+while (end != std::string::npos) {
+                delimiters.push_back(delimiter_spec.substr(start + 1, end - start - 1));
+                start = end + 1;
+                end = delimiter_spec.find("][", start);
+            }
+}
+
     std::vector<std::string> parseDelimiters(const std::string& delimiter_spec) {
         std::vector<std::string> delimiters;
         if (delimiter_spec.front() == '[' && delimiter_spec.back() == ']') {
             size_t start = 0;
             size_t end = delimiter_spec.find("][", start);
-            while (end != std::string::npos) {
-                delimiters.push_back(delimiter_spec.substr(start + 1, end - start - 1));
-                start = end + 1;
-                end = delimiter_spec.find("][", start);
-            }
+            whiledelim(end,delimiters,delimiter_spec,start);
             delimiters.push_back(delimiter_spec.substr(start + 1, delimiter_spec.length() - start - 2));
         } else {
             delimiters.push_back(delimiter_spec);
