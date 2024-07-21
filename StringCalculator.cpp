@@ -1,71 +1,129 @@
+#include <iostream>
 #include <sstream>
-#include "StringCalculator.h"
+#include <vector>
+#include <string>
 #include <stdexcept>
-#include <bits/stdc++.h>
-#include<iostream> 
-#include<vector> 
-#include<algorithm> 
-#include<array> 
-bool is_there_another_number(std::string& str, int & number,std::string const&delim, bool is_user_delim)
-{
-	std::string::size_type pos;
-	if(is_user_delim) {
-		pos = str.find(delim,0);
-	}
-	else
-	 pos = str.find_first_of(delim,0);
+#include <algorithm>
 
-	if(pos == std::string::npos){
-		return false;
-	}
-	++pos;
-	str = str.substr(pos,str.size() - pos);
-	std::stringstream ss(str);
-	ss>>number;
-	str = str.substr(ss.tellg(),str.size() - ss.tellg());
+class StringCalculator {
+public:
+    int Add(const std::string& numbers) {
+        if (numbers.empty()) {
+            return 0;
+        }
 
-	return true;
-}
+        std::vector<std::string> delimiters = { ",", "\n" };
+        std::string numStr = numbers;
 
-bool contains_user_delim(std::string &str, std::string& delim)
-{
-	if(str[0]=='/' && str[1]=='/'){
-		delim = str[2];
-		str = str.substr(4,str.size() - 4);
-		return true;
-	}
-	return false;
-}
+        if (numbers.substr(0, 2) == "//") {
+            processCustomDelimiter(numbers, delimiters, numStr);
+        }
 
-void is_negative_number_present(int result){
-	if(result<0)throw std::runtime_error("negative number not allowed");
-}
+        std::vector<int> nums = splitAndParse(numStr, delimiters);
+        checkForNegatives(nums);
 
-int number_empty(std::string numbers){
-	if(numbers.empty()){
-		return 0 ;
-	}
-}
+        return calculateSum(nums);
+    }
 
-int StringCalculator::add(std::string numbers)
-{
-	//number_empty(numbers);
-	if(numbers.empty()){
-		return 0 ;
-	}
-	std::string delim("\n,");
-	bool user_delim = contains_user_delim(numbers,delim);
+private:
+    void processCustomDelimiter(const std::string& numbers, std::vector<std::string>& delimiters, std::string& numStr) {
+        size_t delimiter_end = numbers.find("\n");
+        std::string delimiter_spec = numbers.substr(2, delimiter_end - 2);
+        delimiters = parseDelimiters(delimiter_spec);
+        numStr = numbers.substr(delimiter_end + 1);
+    }
 
-	int result;
-	std::stringstream ss(numbers);
-	ss>>result;
-	//is_negative_number_present(result);
-	numbers = numbers.substr(ss.tellg(), numbers.size() - ss.tellg());
-	int next;
-	while(is_there_another_number(numbers,next,delim,user_delim))
-	{
-		//if(next<0)throw std::runtime_error("negative number not allowed");
-		result += next;
-	}
-	return result;
-}
+    std::vector<std::string> parseDelimiters(const std::string& delimiter_spec) {
+        std::vector<std::string> delimiters;
+        if (delimiter_spec.front() == '[' && delimiter_spec.back() == ']') {
+            size_t start = 0;
+            size_t end = delimiter_spec.find("][", start);
+            while (end != std::string::npos) {
+                delimiters.push_back(delimiter_spec.substr(start + 1, end - start - 1));
+                start = end + 1;
+                end = delimiter_spec.find("][", start);
+            }
+            delimiters.push_back(delimiter_spec.substr(start + 1, delimiter_spec.length() - start - 2));
+        } else {
+            delimiters.push_back(delimiter_spec);
+        }
+        return delimiters;
+    }
+
+    std::vector<int> splitAndParse(const std::string& str, const std::vector<std::string>& delimiters) {
+        std::vector<int> nums;
+        size_t start = 0;
+        size_t end = findFirstDelimiter(str, start, delimiters);
+        while (end != std::string::npos) {
+            addNumber(str.substr(start, end - start), nums);
+            start = end + delimiters[findDelimiterIndex(str, end, delimiters)].length();
+            end = findFirstDelimiter(str, start, delimiters);
+        }
+        if (start < str.size()) {
+            addNumber(str.substr(start), nums);
+        }
+        return nums;
+    }
+
+    size_t findFirstDelimiter(const std::string& str, size_t start, const std::vector<std::string>& delimiters) {
+        size_t min_pos = std::string::npos;
+        for (const std::string& delimiter : delimiters) {
+            size_t pos = str.find(delimiter, start);
+            if (pos < min_pos) {
+                min_pos = pos;
+            }
+        }
+        return min_pos;
+    }
+
+    size_t findDelimiterIndex(const std::string& str, size_t pos, const std::vector<std::string>& delimiters) {
+        for (size_t i = 0; i < delimiters.size(); ++i) {
+            if (str.substr(pos, delimiters[i].length()) == delimiters[i]) {
+                return i;
+            }
+        }
+        return std::string::npos;
+    }
+
+    void addNumber(const std::string& token, std::vector<int>& nums) {
+        if (!token.empty()) {
+            nums.push_back(std::stoi(token));
+        }
+    }
+
+    void checkForNegatives(const std::vector<int>& nums) {
+        std::vector<int> negatives;
+        for (int num : nums) {
+            if (num < 0) {
+                negatives.push_back(num);
+            }
+        }
+        if (!negatives.empty()) {
+            throwNegativeException(negatives);
+        }
+    }
+
+    void throwNegativeException(const std::vector<int>& negatives) {
+        std::ostringstream oss;
+        oss << "negatives not allowed: ";
+        for (size_t i = 0; i < negatives.size(); ++i) {
+            if (i > 0) {
+                oss << ", ";
+            }
+            oss << negatives[i];
+        }
+        throw std::runtime_error(oss.str());
+    }
+
+    int calculateSum(const std::vector<int>& nums) {
+        int sum = 0;
+        for (int num : nums) {
+            if (num <= 1000) {
+                sum += num;
+            }
+        }
+        return sum;
+    }
+};
+
+
