@@ -7,7 +7,7 @@
 
 class StringCalculator {
 public:
-    int Add(const std::string& numbers) {
+    int add(const std::string& numbers) {
         if (numbers.empty()) {
             return 0;
         }
