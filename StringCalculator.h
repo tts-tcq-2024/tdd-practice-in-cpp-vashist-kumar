@@ -4,5 +4,5 @@ using namespace std;
 
 class StringCalculator{
   public:
-    int add(string numbers);
+    int add(const std::string& numbers);
 };
