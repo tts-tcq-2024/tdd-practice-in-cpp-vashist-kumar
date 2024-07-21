@@ -63,7 +63,7 @@ TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter) {
     ASSERT_EQ(result, expectedresult);
 }
 
-TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter) {
+TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter2) {
     int expectedresult = 3;
     std::string input = "//[***]\n1***2***3";
     StringCalculator objUnderTest;
@@ -72,7 +72,7 @@ TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter) {
     ASSERT_EQ(result, expectedresult);
 }
 
-TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter) {
+TEST(StringCalculatorAddTests, ExpectSumWithCustomDelimiter6) {
     int expectedresult = 3;
     std::string input = "1,2,3";
     StringCalculator objUnderTest;
