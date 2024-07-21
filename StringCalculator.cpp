@@ -14,6 +14,7 @@ void addNumber(const std::string& token, std::vector<int>& nums);
 void checkForNegatives(const std::vector<int>& nums);
 void throwNegativeException(const std::vector<int>& negatives);
 int calculateSum(const std::vector<int>& nums);
+void checknegutils(std::vector<int> negatives);
 
     int StringCalculator::add(const std::string& numbers) {
         if (numbers.empty()) {
@@ -99,6 +100,12 @@ int calculateSum(const std::vector<int>& nums);
         }
     }
 
+   void checknegutils(std::vector<int> negatives){
+    if (!negatives.empty()) {
+            throwNegativeException(negatives);
+        }
+    }
+
     void checkForNegatives(const std::vector<int>& nums) {
         std::vector<int> negatives;
         for (int num : nums) {
@@ -106,9 +113,9 @@ int calculateSum(const std::vector<int>& nums);
                 negatives.push_back(num);
             }
         }
-        if (!negatives.empty()) {
-            throwNegativeException(negatives);
-        }
+
+        checknegutils(negatives);
+        
     }
 
     void throwNegativeException(const std::vector<int>& negatives) {
